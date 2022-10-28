@@ -37,8 +37,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
 class Person(UUIDMixin, TimeStampedMixin):
     full_name = models.CharField(
         _('full name'),
-        max_length=255,
-        unique=True
+        max_length=255
     )
 
     class Meta:
@@ -64,6 +63,12 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     )
     description = models.TextField(_('description'), blank=True)
     creation_date = models.DateField(_('creation date'))
+    file_path = models.FileField(
+        _('file'),
+        blank=True,
+        null=True,
+        upload_to='movies/'
+    )
     rating = models.FloatField(
         _('rating'),
         blank=True,
