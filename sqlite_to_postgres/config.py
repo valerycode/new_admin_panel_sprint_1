@@ -16,6 +16,7 @@ PASSWORD = os.environ.get('DB_PASSWORD')
 HOST = os.environ.get('DB_HOST', '127.0.0.1')
 PORT = os.environ.get('DB_HOST', 5432)
 DB_PATH = os.environ.get('DB_PATH', 'db.sqlite')
+BATCH_SIZE = os.environ.get('DB_PATH', 1000)
 
 TABLES = {
     'genre': Genre,
