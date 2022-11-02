@@ -11,6 +11,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 class PersonFilmworkInline(admin.TabularInline):
     model = PersonFilmwork
+    list_select_related = ['person', ]
     raw_id_fields = ('person',)
 
 
@@ -21,9 +22,22 @@ class GenreFilmworkInline(admin.TabularInline):
 @admin.register(Filmwork)
 class FilmworkAdmin(admin.ModelAdmin):
     inlines = (GenreFilmworkInline, PersonFilmworkInline)
-    list_display = ('title', 'type', 'creation_date', 'rating')
+    list_display = ('title', 'type', 'creation_date', 'rating', 'get_genres')
     list_filter = ('type',)
     search_fields = ('title', 'description', 'id')
+    list_prefetch_related = ('roles', 'genres')
+
+    def get_queryset(self, request):
+        queryset = (
+            super().get_queryset(request).prefetch_related(
+                *self.list_prefetch_related)
+        )
+        return queryset
+
+    def get_genres(self, obj):
+        return ','.join([genre.name for genre in obj.genres.all()])
+
+    get_genres.short_description = 'Жанры фильма'
 
 
 @admin.register(Person)
