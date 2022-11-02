@@ -136,7 +136,7 @@ class PersonFilmwork(UUIDMixin):
         db_table = "content\".\"person_film_work"
         constraints = [
             models.UniqueConstraint(
-                fields=['film_work', 'person'],
+                fields=['film_work', 'person', 'role'],
                 name='unique_film_work_person'
             )]
         verbose_name = 'Участник фильма'
