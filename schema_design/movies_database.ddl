@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS content.person_film_work (
 
 ALTER ROLE app SET search_path TO content, public;
 
-CREATE UNIQUE INDEX film_work_person_idx ON content.person_film_work (film_work_id, person_id);
+CREATE UNIQUE INDEX film_work_person_idx ON content.person_film_work (film_work_id, person_id, role);
 
 CREATE UNIQUE INDEX film_work_name_idx ON content.film_work (title);
 
