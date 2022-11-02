@@ -111,11 +111,25 @@ class GenreFilmwork(UUIDMixin):
         verbose_name = 'Жанр фильма'
         verbose_name_plural = 'Жанры фильма'
 
+    def __str__(self):
+        return ''
+
 
 class PersonFilmwork(UUIDMixin):
+
+    class RoleTypes(models.TextChoices):
+        ACTOR = 'actor', _('actor')
+        DIRECTOR = 'director', _('director')
+        WRITER = 'writer', _('writer')
+
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField(_('role'), null=True)
+    role = models.TextField(
+        _('role'),
+        max_length=8,
+        choices=RoleTypes.choices,
+        null=True
+    )
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -127,3 +141,6 @@ class PersonFilmwork(UUIDMixin):
             )]
         verbose_name = 'Участник фильма'
         verbose_name_plural = 'Участники фильма'
+
+    def __str__(self):
+        return ''
